@@ -18,6 +18,9 @@ ABatteryCollectorGameMode::ABatteryCollectorGameMode()
 
 	// Base decay rate
 	DecayRate = 0.005f;
+
+	// Set difficulty
+	DifficultyMultiplier = 1.25f;
 }
 
 void ABatteryCollectorGameMode::BeginPlay()
@@ -41,12 +44,12 @@ void ABatteryCollectorGameMode::BeginPlay()
 
 	// Set the dificulty
 
-
 	// Set the score to beat
 	ABatteryCollectorCharacter* MyCharacter = Cast<ABatteryCollectorCharacter>(UGameplayStatics::GetPlayerPawn(this, 0));
 	if (MyCharacter)
 	{
-		PowerToWin = (MyCharacter->GetInitialPower()) * 1.25; // TODO: Create a global var for this value
+		//PowerToWin = (MyCharacter->GetInitialPower()) * 1.25; // TODO: Create a global var for this value
+		PowerToWin = (MyCharacter->GetInitialPower()) * GetDifficultyMultiplier();
 	}
 
 	if (HUDWidgetClass != nullptr) 
@@ -58,6 +61,8 @@ void ABatteryCollectorGameMode::BeginPlay()
 		}
 	}
 }
+
+
 
 void ABatteryCollectorGameMode::Tick(float DeltaTime)
 {
@@ -151,4 +156,32 @@ void ABatteryCollectorGameMode::HandleCurrentState(EBatteryPlayState  NewState)
 		}
 		break;
 	}
+}
+//
+//void ABatteryCollectorGameMode::HandleCurrentDifficulty(EPowerToWinDifficulty Difficulty)
+//{
+//	switch (Difficulty)
+//	{
+//	case EPowerToWinDifficulty::ENORMAL:
+//	{
+//		// Set numeric difficulty
+//	}
+//	break;
+//	case EPowerToWinDifficulty::EDIFFICULT:
+//	{
+//		// Set numeric value
+//	}
+//	break;
+//	default:
+//	case EPowerToWinDifficulty::EEASY:
+//	{
+//		// set numeric value here
+//	}
+//	break;
+//	}
+//}
+
+float ABatteryCollectorGameMode::GetDifficultyMultiplier() const
+{
+	return DifficultyMultiplier;
 }

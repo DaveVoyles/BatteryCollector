@@ -14,13 +14,13 @@ enum class EBatteryPlayState
 };
 
 // Enum to adjust store the current difficulty multiplier
-UENUM(BlueprintType)
-enum class EPowerToWinDifficulty
-{
-	EEASY,
-	ENORMAL,
-	EDIFFICULT
-};
+//UENUM(BlueprintType)
+//enum class EPowerToWinDifficulty
+//{
+//	EEASY,
+//	ENORMAL,
+//	EDIFFICULT
+//};
 
 UCLASS(minimalapi)
 class ABatteryCollectorGameMode : public AGameMode
@@ -45,12 +45,16 @@ public:
 	/** Sets a new playing state */
 	void SetCurrentState(EBatteryPlayState NewState);
 
-	/** Returns PowerToWinMultiplier */
+	/** Returns Difficulty Multiplier */
 	UFUNCTION(BlueprintPure, Category = "Power")
-	EPowerToWinDifficulty GetPowerToWinDifficulty() const;
+	float GetDifficultyMultiplier() const;
 
-	/** Sets the PowerToWinDiffculty */
-	void SetPowerToWinDifficulty(EPowerToWinDifficulty Difficulty);
+	/** Returns PowerToWinMultiplier */
+	//UFUNCTION(BlueprintPure, Category = "Power")
+	//EPowerToWinDifficulty GetPowerToWinDifficulty() const;
+
+	///** Sets the PowerToWinDiffculty */
+	//void SetPowerToWinDifficulty(EPowerToWinDifficulty Difficulty);
 
 protected:
 	/**The rate at which the character lsoes power */
@@ -69,6 +73,12 @@ protected:
 	UPROPERTY()
 	class UUserWidget* CurrentWidget;
 
+	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Power", Meta = (BlueprintProtected = "True"))
+	float DifficultyMultiplier;
+
+
+	//UPROPERTY(BluePrintReadWrite, Category = "Difficulty")
+	//void SetCurrentDifficultyMultiplier(EPowerToWinDifficulty Difficulty);
 
 
 private:
@@ -81,7 +91,9 @@ private:
 	void HandleCurrentState(EBatteryPlayState NewState);
 
 	/** Keeps track of current PowerToWinDifficulty */
-	EPowerToWinDifficulty CurrPowerToWinDifficulty;
+	//EPowerToWinDifficulty CurrPowerToWinDifficulty;
+
+	//void HandleDifficulty(EPowerToWinDifficulty Difficulty);
 
 };
 
